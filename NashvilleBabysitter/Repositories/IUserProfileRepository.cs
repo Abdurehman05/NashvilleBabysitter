@@ -11,6 +11,6 @@ namespace NashvilleBabysitter.Repositories
 
         void Add(UserProfile userProfile);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
-
+        UserProfile GetParentById(int id);
     }
 }

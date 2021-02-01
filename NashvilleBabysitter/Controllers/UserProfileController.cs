@@ -25,6 +25,12 @@ namespace NashvilleBabysitter.Controllers
             return Ok(_repo.GetByFirebaseUserId(firebaseUserId));
         }
 
+        [HttpGet("/parent/{id}")]
+        public IActionResult GetParentById(int id)
+        {
+            return Ok(_repo.GetParentById(id));
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
