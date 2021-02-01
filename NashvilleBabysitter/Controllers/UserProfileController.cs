@@ -31,6 +31,12 @@ namespace NashvilleBabysitter.Controllers
             return Ok(_repo.GetParentById(id));
         }
 
+        [HttpGet("/babysitter/{id}")]
+        public IActionResult GetBabySitterById(int id)
+        {
+            return Ok(_repo.GetBabysitterById(id));
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {

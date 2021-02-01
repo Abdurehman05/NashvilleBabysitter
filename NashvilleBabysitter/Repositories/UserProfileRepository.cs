@@ -23,9 +23,7 @@ namespace NashvilleBabysitter.Repositories
                 .Include(up => up.UserType)
                 .Include(up => up.Neighborhood)
                 .FirstOrDefault(up => up.FirebaseUserId == firebaseUserId);
-
         }
-
         public void Add(UserProfile userProfile)
         {
             _context.Add(userProfile);
@@ -36,6 +34,13 @@ namespace NashvilleBabysitter.Repositories
         {
             return _context.UserProfile
                  .Where(up => up.UserTypeId == 1)
+                 .Where(up => up.Id == id)
+                 .FirstOrDefault();
+        }
+        public UserProfile GetBabysitterById(int id)
+        {
+            return _context.UserProfile
+                 .Where(up => up.UserTypeId == 2)
                  .Where(up => up.Id == id)
                  .FirstOrDefault();
         }
