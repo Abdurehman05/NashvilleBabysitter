@@ -44,5 +44,12 @@ namespace NashvilleBabysitter.Repositories
                  .Where(up => up.Id == id)
                  .FirstOrDefault();
         }
+        public List<UserProfile> GetBabysitterByNeighborhoodId(int neighborhoodId)
+        {
+            return _context.UserProfile
+                 .Where(up => up.UserTypeId == 2)
+                 .Where(up => up.NeighborhoodId == neighborhoodId)
+                 .ToList();
+        }
     }
 }

@@ -37,6 +37,12 @@ namespace NashvilleBabysitter.Controllers
             return Ok(_repo.GetBabysitterById(id));
         }
 
+        [HttpGet("/babysitters/{neighborhoodId}")]
+        public IActionResult GetBabySitterByNeighborhoodId(int neighborhoodId)
+        {
+            return Ok(_repo.GetBabysitterByNeighborhoodId(neighborhoodId));
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
