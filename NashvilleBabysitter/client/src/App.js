@@ -4,15 +4,15 @@ import { UserProfileProvider } from "./providers/UserProfileProvider";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-// import AppHeader from "./components/AppHeader";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <div className="App">
-      <ToastContainer position="bottom-right" hideProgressBar />
+      <ToastContainer position="bottom-left" hideProgressBar />
       <UserProfileProvider>
         <Router>
-          {/* <AppHeader /> */}
+          <NavBar />
           <ApplicationViews />
         </Router>
       </UserProfileProvider>
