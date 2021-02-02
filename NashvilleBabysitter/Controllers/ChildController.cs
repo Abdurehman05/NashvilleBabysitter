@@ -33,6 +33,20 @@ namespace NashvilleBabysitter.Controllers
             _childRepository.Add(child);
             return Ok(child);
         }
+
+        [HttpGet("getbyuser/{id}")]
+        public IActionResult GetByParent(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            if (currentUser.Id != id)
+            {
+                return Unauthorized();
+            }
+            var children = _childRepository.GetChildrenByParentId(id);
+            return Ok(children);
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;

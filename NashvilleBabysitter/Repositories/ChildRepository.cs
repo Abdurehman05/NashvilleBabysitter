@@ -19,5 +19,18 @@ namespace NashvilleBabysitter.Repositories
             _context.Add(child);
             _context.SaveChanges();
         }
+
+        public List<Child> GetChildrenById(int id)
+        {
+            return _context.Child
+                .Where(c => c.Id == id)
+                .ToList();
+        }
+        public List<Child> GetChildrenByParentId(int id)
+        {
+            return _context.Child
+                .Where(c => c.UserProfileId == id)
+                .ToList();
+        }
     }
 }

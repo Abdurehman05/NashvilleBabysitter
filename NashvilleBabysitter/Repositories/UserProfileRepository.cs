@@ -33,6 +33,8 @@ namespace NashvilleBabysitter.Repositories
         public UserProfile GetParentById(int id)
         {
             return _context.UserProfile
+                 .Include(up => up.UserType)
+                 .Include(up => up.Neighborhood)
                  .Where(up => up.UserTypeId == 1)
                  .Where(up => up.Id == id)
                  .FirstOrDefault();
@@ -40,6 +42,8 @@ namespace NashvilleBabysitter.Repositories
         public UserProfile GetBabysitterById(int id)
         {
             return _context.UserProfile
+                 .Include(up => up.UserType)
+                 .Include(up => up.Neighborhood)
                  .Where(up => up.UserTypeId == 2)
                  .Where(up => up.Id == id)
                  .FirstOrDefault();
