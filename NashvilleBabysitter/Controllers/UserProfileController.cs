@@ -5,6 +5,7 @@ using NashvilleBabysitter.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace NashvilleBabysitter.Controllers
@@ -25,6 +26,24 @@ namespace NashvilleBabysitter.Controllers
             return Ok(_repo.GetByFirebaseUserId(firebaseUserId));
         }
 
+        [HttpGet("/parent/{id}")]
+        public IActionResult GetParentById(int id)
+        {
+            return Ok(_repo.GetParentById(id));
+        }
+
+        [HttpGet("/babysitter/{id}")]
+        public IActionResult GetBabySitterById(int id)
+        {
+            return Ok(_repo.GetBabysitterById(id));
+        }
+
+        [HttpGet("/babysitters/{neighborhoodId}")]
+        public IActionResult GetBabySitterByNeighborhoodId(int neighborhoodId)
+        {
+            return Ok(_repo.GetBabysitterByNeighborhoodId(neighborhoodId));
+        }
+
         [HttpPost]
         public IActionResult Post(UserProfile userProfile)
         {
@@ -35,5 +54,13 @@ namespace NashvilleBabysitter.Controllers
                 new { firebaseUserId = userProfile.FirebaseUserId },
                 userProfile);
         }
+
+        private UserProfile GetCurrentUserProfile()
+        {
+            var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _repo.GetByFirebaseUserId(firebaseUserId);
+        }
+
+
     }
 }
