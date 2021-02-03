@@ -29,12 +29,24 @@ namespace NashvilleBabysitter.Controllers
         [HttpGet("/parent/{id}")]
         public IActionResult GetParentById(int id)
         {
+            var currentUser = GetCurrentUserProfile();
+
+            if (currentUser.Id != id)
+            {
+                return Unauthorized();
+            }
             return Ok(_repo.GetParentById(id));
         }
 
         [HttpGet("/babysitter/{id}")]
         public IActionResult GetBabySitterById(int id)
         {
+            var currentUser = GetCurrentUserProfile();
+
+            if (currentUser.Id != id)
+            {
+                return Unauthorized();
+            }
             return Ok(_repo.GetBabysitterById(id));
         }
 

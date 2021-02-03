@@ -56,7 +56,7 @@ const Register = () => {
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <div className="avatar bg-primary">
-          <img src="/baby01.jpg" alt="Avatar" />
+          <img src="/babylogo.png" alt="Avatar" />
         </div>
         <h2 className="text-center">User Register</h2>
         <div className="form-group">

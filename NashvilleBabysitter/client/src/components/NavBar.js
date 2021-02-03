@@ -34,7 +34,7 @@ const NavBar = () => {
         <NavbarBrand tag={Link} to="/">
           <img
             id="header-logo"
-            src="/baby01.jpg"
+            src="/babylogo.png"
             width="30"
             height="30"
             className="mr-1"
@@ -47,6 +47,11 @@ const NavBar = () => {
           <Nav className="mr-auto" navbar>
             {user ? (
               <>
+                <NavItem>
+                  <NavLink to="/parentCard" tag={Link}>
+                    Parent
+                  </NavLink>
+                </NavItem>
                 <NavItem>
                   <NavLink onClick={logoutAndReturn}>Logout</NavLink>
                 </NavItem>
