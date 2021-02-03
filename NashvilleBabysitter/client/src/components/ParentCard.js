@@ -30,26 +30,6 @@ const ParentCard = () => {
         })
     );
   }, []);
-
-  useEffect(() => {
-    getBabysitters();
-  }, []);
-
-  const getBabysitters = () => {
-    getToken().then((token) =>
-      fetch(`/babysitters/{neighborhoodId}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((babysitters) => {
-          setBabysitters(babysitters);
-        })
-    );
-  };
-
   return (
     <>
       <Header as="h1">Parent Dashboard</Header>
@@ -64,13 +44,13 @@ const ParentCard = () => {
       </Container>
       <Button color="youtube">Add a Child</Button>
 
-      {/* <Container>
+      <Container>
         <List>
-          {babysitters.map((babysitter) => (
-            <List.Item key={babysitter.id} babysitter={babysitter}></List.Item>
-          ))}
+          {babysitters.map((babysitter) => {
+            return <List.Item key={babysitter.id} babysitter={babysitter} />;
+          })}
         </List>
-      </Container> */}
+      </Container>
     </>
   );
 };

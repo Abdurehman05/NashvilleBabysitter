@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NashvilleBabysitter.Models;
+using NashvilleBabysitter.Models.ViewModels;
 using NashvilleBabysitter.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,11 @@ namespace NashvilleBabysitter.Controllers
     public class UserProfileController : ControllerBase
     {
         private IUserProfileRepository _repo;
-        public UserProfileController(IUserProfileRepository repo)
+        private IChildRepository _childRepo;
+        public UserProfileController(IUserProfileRepository repo, IChildRepository childRepo)
         {
             _repo = repo;
+            _childRepo = childRepo;
         }
 
         [HttpGet("{firebaseUserId}")]
@@ -30,12 +33,23 @@ namespace NashvilleBabysitter.Controllers
         public IActionResult GetParentById(int id)
         {
             var currentUser = GetCurrentUserProfile();
+            UserProfile parent = _repo.GetParentById(id);
 
             if (currentUser.Id != id)
             {
                 return Unauthorized();
             }
-            return Ok(_repo.GetParentById(id));
+            List<Child> children = _childRepo.GetChildrenByParentId(parent.Id);
+            List<UserProfile> babysitters = _repo.GetBabysitterByNeighborhoodId(parent.NeighborhoodId);
+
+            ParentProfileViewModel vm = new ParentProfileViewModel()
+            {
+                UserProfile = parent,
+                Children = children,
+                Babysitters = babysitters
+            };
+
+            return Ok(vm);
         }
 
         [HttpGet("/babysitter/{id}")]

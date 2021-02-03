@@ -13,12 +13,12 @@ namespace NashvilleBabysitter.Controllers
     [ApiController]
     public class ChildController : ControllerBase
     {
-        private IChildRepository _childRepository;
+        private IChildRepository _childRepo;
         private IUserProfileRepository _repo;
 
-        public ChildController(IChildRepository childRepository, IUserProfileRepository repo)
+        public ChildController(IChildRepository childRepo, IUserProfileRepository repo)
         {
-            _childRepository = childRepository;
+            _childRepo = childRepo;
             _repo = repo;
         }
 
@@ -30,7 +30,7 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
-            _childRepository.Add(child);
+            _childRepo.Add(child);
             return Ok(child);
         }
 
@@ -43,7 +43,7 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
-            var children = _childRepository.GetChildrenByParentId(id);
+            var children = _childRepo.GetChildrenByParentId(id);
             return Ok(children);
         }
 
