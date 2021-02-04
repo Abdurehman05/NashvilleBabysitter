@@ -10,12 +10,12 @@ import {
 } from "semantic-ui-react";
 
 const ParentCard = () => {
-  const [parent, setParents] = useState([]);
+  const [parent, setParents] = useState();
   const [babysitters, setBabysitters] = useState([]);
   const { getToken } = useContext(UserProfileContext);
 
   const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
-  debugger;
+
   useEffect(() => {
     getToken().then((token) =>
       fetch(`/parent/${currentUser}`, {
@@ -30,6 +30,10 @@ const ParentCard = () => {
         })
     );
   }, []);
+
+  if (!parent) {
+    return null;
+  }
   return (
     <>
       <Header as="h1">Parent Dashboard</Header>
