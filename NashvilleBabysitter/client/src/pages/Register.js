@@ -14,12 +14,14 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [neighborhoodId, setNeighborhoodId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [userTypeId, setUserTypeId] = useState("");
+  const [neighborhoodId, setNeighborhoodId] = useState("");
 
   const [userTypes, setUserType] = useState([]);
+  const [neighborhoods, setNeighborhoods] = useState([]);
 
   const history = useHistory();
 
@@ -39,6 +41,7 @@ const Register = () => {
       email,
       phone,
       imageUrl,
+      userTypeId,
       neighborhoodId,
     };
     register(profile, password)
@@ -60,6 +63,16 @@ const Register = () => {
       .then((res) => res.json())
       .then((data) => {
         setUserType(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/Neighborhood", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNeighborhoods(data);
       });
   }, []);
 
@@ -152,13 +165,13 @@ const Register = () => {
         </div>
         <div className="form-group">
           <Input
-            onChange={(e) => handleSubmit(e)}
+            onChange={(e) => setUserTypeId(e.target.value)}
             type="select"
             className="form-control"
-            name="UserType"
+            name="userType"
             required="required"
           >
-            <option value="0">User Type</option>
+            <option value="0">Select User Type</option>
             {userTypes.map((ut) => (
               <option value={ut.id} key={ut.id}>
                 {ut.name}
@@ -169,12 +182,18 @@ const Register = () => {
         <div className="form-group">
           <Input
             onChange={(e) => setNeighborhoodId(e.target.value)}
-            type="text"
+            type="select"
             className="form-control"
-            name="neighborhoodId"
-            placeholder="Neighborhood Id"
+            name="neighborhood"
             required="required"
-          />
+          >
+            <option value="0">Select Neighborhood</option>
+            {neighborhoods.map((n) => (
+              <option value={n.id} key={n.id}>
+                {n.name}
+              </option>
+            ))}
+          </Input>
         </div>
         <div className="form-group">
           <Button type="submit" block color="danger" disabled={loading}>
