@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { Button, Input } from "reactstrap";
@@ -14,11 +14,13 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [userTypeId, setUserTypeId] = useState("");
   const [neighborhoodId, setNeighborhoodId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+
+  const [userTypes, setUserType] = useState([]);
+
   const history = useHistory();
 
   const handleSubmit = (e) => {
@@ -37,7 +39,6 @@ const Register = () => {
       email,
       phone,
       imageUrl,
-      userTypeId,
       neighborhoodId,
     };
     register(profile, password)
@@ -52,11 +53,21 @@ const Register = () => {
       });
   };
 
+  useEffect(() => {
+    fetch("/api/UserType", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setUserType(data);
+      });
+  }, []);
+
   return (
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <div className="avatar bg-primary">
-          <img src="/baby01.jpg" alt="Avatar" />
+          <img src="/babylogo.png" alt="Avatar" />
         </div>
         <h2 className="text-center">User Register</h2>
         <div className="form-group">
@@ -141,13 +152,19 @@ const Register = () => {
         </div>
         <div className="form-group">
           <Input
-            onChange={(e) => setUserTypeId(e.target.value)}
-            type="text"
+            onChange={(e) => handleSubmit(e)}
+            type="select"
             className="form-control"
-            name="userTypeId"
-            placeholder="User Type ID"
+            name="UserType"
             required="required"
-          />
+          >
+            <option value="0">User Type</option>
+            {userTypes.map((ut) => (
+              <option value={ut.id} key={ut.id}>
+                {ut.name}
+              </option>
+            ))}
+          </Input>
         </div>
         <div className="form-group">
           <Input

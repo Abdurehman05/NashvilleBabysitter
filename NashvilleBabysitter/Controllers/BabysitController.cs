@@ -11,31 +11,19 @@ namespace NashvilleBabysitter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChildController : ControllerBase
+    public class BabysitController : ControllerBase
     {
-        private IChildRepository _childRepo;
+        private IBabysitRepository _babysitRepo;
         private IUserProfileRepository _repo;
 
-        public ChildController(IChildRepository childRepo, IUserProfileRepository repo)
+        public BabysitController(IBabysitRepository babysitRepo, IUserProfileRepository repo)
         {
-            _childRepo = childRepo;
+            _babysitRepo = babysitRepo;
             _repo = repo;
         }
 
-        [HttpPost]
-        public IActionResult Post(Child child)
-        {
-            var currentUser = GetCurrentUserProfile();
-            if (currentUser.Id != child.UserProfileId)
-            {
-                return Unauthorized();
-            }
-            _childRepo.Add(child);
-            return Ok(child);
-        }
-
-        [HttpGet("getbyuser/{id}")]
-        public IActionResult GetByParent(int id)
+        [HttpGet("getbyparent/{id}")]
+        public IActionResult GetBabysitsByParentId(int id)
         {
             var currentUser = GetCurrentUserProfile();
 
@@ -43,8 +31,8 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
-            var children = _childRepo.GetChildrenByParentId(id);
-            return Ok(children);
+            var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
+            return Ok(babysits);
         }
 
         private UserProfile GetCurrentUserProfile()
