@@ -15,7 +15,7 @@ const ParentCard = () => {
   const { getToken } = useContext(UserProfileContext);
 
   const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
-
+  debugger;
   useEffect(() => {
     getToken().then((token) =>
       fetch(`/parent/${currentUser}`, {
@@ -35,22 +35,22 @@ const ParentCard = () => {
       <Header as="h1">Parent Dashboard</Header>
       <Container>
         <Card>
-          <Image src={parent.imageUrl} />
-          <Header>{parent.fullName}</Header>
-          <Card.Content>{parent.address}</Card.Content>
-          <Card.Content>Email:{parent.email}</Card.Content>
-          <Card.Content>Phone: {parent.phone}</Card.Content>
+          <Image src={parent.userProfile.imageUrl} />
+          <Header>{parent.userProfile.fullName}</Header>
+          <Card.Content>{parent.userProfile.address}</Card.Content>
+          <Card.Content>Email:{parent.userProfile.email}</Card.Content>
+          <Card.Content>Phone: {parent.userProfile.phone}</Card.Content>
         </Card>
       </Container>
       <Button color="youtube">Add a Child</Button>
 
-      <Container>
+      {/* <Container>
         <List>
           {babysitters.map((babysitter) => {
             return <List.Item key={babysitter.id} babysitter={babysitter} />;
           })}
         </List>
-      </Container>
+      </Container> */}
     </>
   );
 };

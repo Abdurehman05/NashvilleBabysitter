@@ -10,7 +10,7 @@ namespace NashvilleBabysitter.Repositories
 {
     public class UserProfileRepository : IUserProfileRepository
     {
-        private readonly ApplicationDbContext _context;
+        private ApplicationDbContext _context;
 
         public UserProfileRepository(ApplicationDbContext context)
         {

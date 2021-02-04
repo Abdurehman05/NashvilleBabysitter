@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NashvilleBabysitter.Data;
+using NashvilleBabysitter.Models;
 using NashvilleBabysitter.Repositories;
 using Newtonsoft.Json;
 using System;
@@ -34,6 +35,10 @@ namespace NashvilleBabysitter
         {
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IChildRepository, ChildRepository>();
+            services.AddTransient<IBabysitRepository, BabysitRepository>();
+            services.AddTransient<IUserTypeRepository, UserTypeRepository>();
+            services.AddTransient<INeighborhoodRepository, NeighborhoodRepository>();
+
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
