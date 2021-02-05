@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import BabysitterCard from "./BabysitterCard";
+import BabysitCard from "./BabysitCard";
 import ChildCard from "./ChildCard";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import {
@@ -59,22 +60,24 @@ const ParentDetails = () => {
             <Grid.Column width={8}>
               <Header as="h2">Children</Header>
               {parent.children.map((child) => {
-                return (
-                  <Grid.Column>
-                    <ChildCard key={child.id} child={child} />
-                  </Grid.Column>
-                );
+                return <ChildCard key={child.id} child={child} />;
               })}
             </Grid.Column>
 
-            <Grid.Column width={3}>
-              <Header as="h2">Babysitters</Header>
+            <Grid.Column width={4}>
+              <Header as="h2">Babysitters Near me</Header>
               {parent.babysitters.map((babysitter) => {
                 return (
                   <BabysitterCard key={babysitter.id} babysitter={babysitter} />
                 );
               })}
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header as="h2">Upcoming Babysits Schedule</Header>
+            {parent.babysits.map((babysit) => {
+              return <BabysitCard key={babysit.id} babysit={babysit} />;
+            })}
           </Grid.Row>
         </Grid>
       </Container>

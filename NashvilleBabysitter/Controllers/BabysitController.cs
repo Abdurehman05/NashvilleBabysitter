@@ -31,8 +31,21 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
-            var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
-            return Ok(babysits);
+
+            try
+            {
+                var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
+                return Ok(babysits);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
+
+
+
         }
 
         private UserProfile GetCurrentUserProfile()

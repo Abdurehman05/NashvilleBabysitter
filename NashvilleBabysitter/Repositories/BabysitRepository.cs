@@ -20,11 +20,12 @@ namespace NashvilleBabysitter.Repositories
         public List<Babysit> GetUpcomingBabysitsByParentId(int id)
         {
             return _context.Babysit
+                .Include(b => b.UserProfile)
                 .Include(b => b.Child)
                 .Include(b => b.BabysitStatus)
-                .Where(b => b.UserProfileId == id)
-                .Where(b => b.UserProfile.UserTypeId == 1)
-                .Where(b => b.BabysitStatusId == 1 || b.BabysitStatusId == 2)              
+                .Where(b => b.Child.UserProfileId == id)
+                .Where(b => b.BabysitStatusId == 1 || b.BabysitStatusId == 2)
+                .OrderByDescending(b => b.Date)
                 .ToList();
 
         }

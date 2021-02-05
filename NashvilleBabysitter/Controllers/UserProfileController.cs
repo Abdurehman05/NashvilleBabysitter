@@ -17,10 +17,12 @@ namespace NashvilleBabysitter.Controllers
     {
         private IUserProfileRepository _repo;
         private IChildRepository _childRepo;
-        public UserProfileController(IUserProfileRepository repo, IChildRepository childRepo)
+        private IBabysitRepository _babysitRepo;
+        public UserProfileController(IUserProfileRepository repo, IChildRepository childRepo, IBabysitRepository babysitRepo)
         {
             _repo = repo;
             _childRepo = childRepo;
+            _babysitRepo = babysitRepo;
         }
 
         [HttpGet("{firebaseUserId}")]
@@ -41,12 +43,14 @@ namespace NashvilleBabysitter.Controllers
             }
             List<Child> children = _childRepo.GetChildrenByParentId(parent.Id);
             List<UserProfile> babysitters = _repo.GetBabysitterByNeighborhoodId(parent.NeighborhoodId);
+            List<Babysit> babysits = _babysitRepo.GetUpcomingBabysitsByParentId(parent.Id);
 
             ParentProfileViewModel vm = new ParentProfileViewModel()
             {
                 UserProfile = parent,
                 Children = children,
-                Babysitters = babysitters
+                Babysitters = babysitters,
+                Babysits = babysits
             };
 
             return Ok(vm);
