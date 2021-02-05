@@ -4,7 +4,7 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./Home";
-import ParentCard from "./ParentCard";
+import ParentDetails from "./ParentDetails";
 
 const ApplicationViews = () => {
   const { isLoggedIn } = useContext(UserProfileContext);
@@ -14,8 +14,8 @@ const ApplicationViews = () => {
       <Route path="/" exact>
         {isLoggedIn ? <Home /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/parentCard">
-        {isLoggedIn ? <ParentCard /> : <Redirect to="/login" />}
+      <Route path="/parentdetails">
+        {isLoggedIn ? <ParentDetails /> : <Redirect to="/login" />}
       </Route>
       <Route path="/login">
         <Login />

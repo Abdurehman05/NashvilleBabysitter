@@ -48,7 +48,7 @@ const NavBar = () => {
             {user ? (
               <>
                 <NavItem>
-                  <NavLink to="/parentCard" tag={Link}>
+                  <NavLink to="/parentdetails" tag={Link}>
                     Parent
                   </NavLink>
                 </NavItem>
