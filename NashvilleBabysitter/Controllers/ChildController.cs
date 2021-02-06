@@ -22,7 +22,7 @@ namespace NashvilleBabysitter.Controllers
             _repo = repo;
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public IActionResult Post(Child child)
         {
             var currentUser = GetCurrentUserProfile();
@@ -30,10 +30,12 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
+            //child.UserProfileId = currentUser.Id;
             _childRepo.Add(child);
             return Ok(child);
         }
 
+     
         [HttpGet("getbyuser/{id}")]
         public IActionResult GetByParent(int id)
         {

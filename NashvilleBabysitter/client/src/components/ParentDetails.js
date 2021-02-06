@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import BabysitterCard from "./BabysitterCard";
+import { useHistory } from "react-router-dom";
 import BabysitCard from "./BabysitCard";
 import ChildCard from "./ChildCard";
 import { UserProfileContext } from "../providers/UserProfileProvider";
@@ -20,6 +21,8 @@ const ParentDetails = () => {
   const { getToken } = useContext(UserProfileContext);
 
   const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
+
+  const history = useHistory();
 
   useEffect(() => {
     getToken().then((token) =>
@@ -54,7 +57,14 @@ const ParentDetails = () => {
                 <Card.Content>Email:{parent.userProfile.email}</Card.Content>
                 <Card.Content>Phone: {parent.userProfile.phone}</Card.Content>
               </Card>
-              <Button color="black">Add a Child</Button>
+              <Button
+                color="black"
+                onClick={() => {
+                  history.push("/child/create");
+                }}
+              >
+                Add a Child
+              </Button>
             </Grid.Column>
 
             <Grid.Column width={8}>

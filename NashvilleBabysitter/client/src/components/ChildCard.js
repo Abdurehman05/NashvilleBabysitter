@@ -4,11 +4,11 @@ import { Card, Image, Header } from "semantic-ui-react";
 
 const ChildCard = ({ child }) => (
   <Card>
+    <Image src={child.imageUrl} />
+    <Header>{child.name}</Header>
+    <Card.Content>Age: {child.age}</Card.Content>
     <Card.Content>
-      <Image size="small" circular centered src={child.imageUrl} />
-      <Header>{child.name}</Header>
-      <Card.Content>Age: {child.age}</Card.Content>
-      <Card.Content>Note: {child.notes}</Card.Content>
+      <strong>Note:</strong> {child.notes}
     </Card.Content>
   </Card>
 );

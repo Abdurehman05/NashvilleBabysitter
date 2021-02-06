@@ -88,10 +88,16 @@ export function UserProfileProvider(props) {
     return JSON.parse(user);
   };
 
-  const isAdmin = () => {
+  // const isAdmin = () => {
+  //   const user = getCurrentUser();
+  //   const adminTypeId = 1;
+  //   return user !== null && user.userTypeId === adminTypeId;
+  // };
+
+  const isParent = () => {
     const user = getCurrentUser();
-    const adminTypeId = 1;
-    return user !== null && user.userTypeId === adminTypeId;
+    const parentTypeId = 1;
+    return user !== null && user.userTypeId === parentTypeId;
   };
 
   return (
@@ -103,7 +109,8 @@ export function UserProfileProvider(props) {
         register,
         getToken,
         getCurrentUser,
-        isAdmin,
+        // isAdmin,
+        isParent,
       }}
     >
       {isFirebaseReady ? (

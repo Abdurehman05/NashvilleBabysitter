@@ -4,11 +4,9 @@ import { Card, Image, Button, Header } from "semantic-ui-react";
 
 const BabysitterCard = ({ babysitter }) => (
   <Card>
-    <Card.Content>
-      <Image size="small" centered src={babysitter.imageUrl} />
-      <Header>{babysitter.displayName}</Header>
-      <Button color="black">Schedule A Babysit</Button>
-    </Card.Content>
+    <Image src={babysitter.imageUrl} />
+    <Header>{babysitter.displayName}</Header>
+    <Button color="black">Schedule A Babysit</Button>
   </Card>
 );
 export default BabysitterCard;
