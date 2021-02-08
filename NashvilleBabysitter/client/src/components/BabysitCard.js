@@ -10,7 +10,7 @@ const BabysitCard = ({ babysit }) => (
         <Table.HeaderCell>Babysitter Name</Table.HeaderCell>
         <Table.HeaderCell>Child Name</Table.HeaderCell>
         <Table.HeaderCell>Date and Time</Table.HeaderCell>
-        <Table.HeaderCell>Confirmed</Table.HeaderCell>
+        <Table.HeaderCell>Status</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 

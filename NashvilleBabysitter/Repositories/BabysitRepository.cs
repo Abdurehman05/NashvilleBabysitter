@@ -29,5 +29,21 @@ namespace NashvilleBabysitter.Repositories
                 .ToList();
 
         }
+        public void AddBabysit(Babysit babysit)
+        {
+            _context.Add(babysit);
+            _context.SaveChanges();
+        }
+
+        public List<Babysit> GetBabysitsByBabysitterId(int babysitterId)
+        {
+            return _context.Babysit
+                .Include(b => b.UserProfile)
+                .Include(b => b.Child)
+                .Include(b => b.BabysitStatus)
+                .Where(b => b.UserProfileId == babysitterId)
+                .OrderByDescending(b => b.Date)
+                .ToList();
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NashvilleBabysitter.Models;
+using NashvilleBabysitter.Models.ViewModels;
 using NashvilleBabysitter.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace NashvilleBabysitter.Controllers
     {
         private IBabysitRepository _babysitRepo;
         private IUserProfileRepository _repo;
+        private IChildRepository _childRepo;
 
-        public BabysitController(IBabysitRepository babysitRepo, IUserProfileRepository repo)
+
+        public BabysitController(IBabysitRepository babysitRepo, IUserProfileRepository repo, IChildRepository childRepo)
         {
             _babysitRepo = babysitRepo;
             _repo = repo;
+            _childRepo = childRepo;
         }
 
         [HttpGet("getbyparent/{id}")]
@@ -43,10 +47,36 @@ namespace NashvilleBabysitter.Controllers
                 return BadRequest();
             }
 
-
-
-
         }
+
+        [HttpPost]
+        public IActionResult Post(Babysit babysit)
+        {
+            var currentUser = GetCurrentUserProfile();
+            if (currentUser.Id != babysit.Child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            UserProfile babysitter = _repo.GetBabysitterById(babysit.UserProfileId);
+            ScheduleBabysitViewModel vm = new ScheduleBabysitViewModel()
+            {
+                Babysit = new Babysit()
+                {
+                    UserProfileId = babysitter.Id,
+                    BabysitStatusId = 1
+                    
+                },
+                Babysitter = babysitter,
+                Children = _childRepo.GetChildrenByParentId(currentUser.Id)
+            };
+            babysit.Child.UserProfileId = currentUser.Id;
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 1;
+            _babysitRepo.AddBabysit(babysit);
+            return Ok(vm);
+        }
+
+
 
         private UserProfile GetCurrentUserProfile()
         {

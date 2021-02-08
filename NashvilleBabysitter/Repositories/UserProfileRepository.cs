@@ -58,5 +58,13 @@ namespace NashvilleBabysitter.Repositories
                  .Where(up => up.NeighborhoodId == neighborhoodId)
                  .ToList();
         }
+
+        public List<UserProfile> GetAllParents()
+        {
+            return _context.UserProfile
+                 .Where(up => up.UserTypeId == 1)
+                 .ToList();
+
+        }
     }
 }

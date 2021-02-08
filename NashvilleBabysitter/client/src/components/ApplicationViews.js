@@ -6,19 +6,31 @@ import Register from "../pages/Register";
 import Home from "./Home";
 import ParentDetails from "./ParentDetails";
 import ChildForm from "../pages/ChildForm";
+import BabysitterDetails from "./BabysitterDetails";
 
 const ApplicationViews = () => {
-  const { isLoggedIn, isParent } = useContext(UserProfileContext);
+  const { isLoggedIn, isParent, isBabysitter } = useContext(UserProfileContext);
 
   return (
     <Switch>
       <Route path="/" exact>
         {isLoggedIn ? <Home /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/parent/:parentId">
+      <Route path="/parent/details">
         {isLoggedIn ? (
           isParent() ? (
             <ParentDetails />
+          ) : (
+            <Redirect to="/" />
+          )
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Route>
+      <Route path="/babysitter/details">
+        {isLoggedIn ? (
+          isBabysitter() ? (
+            <BabysitterDetails />
           ) : (
             <Redirect to="/" />
           )
