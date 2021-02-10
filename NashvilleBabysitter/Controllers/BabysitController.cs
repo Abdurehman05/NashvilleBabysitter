@@ -60,7 +60,7 @@ namespace NashvilleBabysitter.Controllers
             }
             babysit.Duration = 0;
             babysit.BabysitStatusId = 1;
-               
+
             _babysitRepo.AddBabysit(babysit);
             return Ok(babysit);
         }
@@ -68,16 +68,15 @@ namespace NashvilleBabysitter.Controllers
         [HttpPut("confirm/{id}")]
         public IActionResult Confirm(Babysit babysit)
         {
-           
+
             var currentUser = GetCurrentUserProfile();
-            var child = _childRepo.GetChildrenById(babysit.ChildId);
-            if (currentUser.Id != child.UserProfileId)
+            if (currentUser.Id != babysit.UserProfileId)
             {
                 return Unauthorized();
             }
             babysit.Duration = 0;
             babysit.BabysitStatusId = 2;
-  
+
             _babysitRepo.Update(babysit);
             return Ok();
         }
@@ -87,8 +86,7 @@ namespace NashvilleBabysitter.Controllers
         {
 
             var currentUser = GetCurrentUserProfile();
-            var child = _childRepo.GetChildrenById(babysit.ChildId);
-            if (currentUser.Id != child.UserProfileId)
+            if (currentUser.Id != babysit.UserProfileId)
             {
                 return Unauthorized();
             }
