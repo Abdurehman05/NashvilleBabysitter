@@ -30,9 +30,11 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
+            child.UserProfileId = currentUser.Id;
             _childRepo.Add(child);
             return Ok(child);
         }
+
 
         [HttpGet("getbyuser/{id}")]
         public IActionResult GetByParent(int id)

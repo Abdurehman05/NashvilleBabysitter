@@ -17,10 +17,12 @@ namespace NashvilleBabysitter.Controllers
     {
         private IUserProfileRepository _repo;
         private IChildRepository _childRepo;
-        public UserProfileController(IUserProfileRepository repo, IChildRepository childRepo)
+        private IBabysitRepository _babysitRepo;
+        public UserProfileController(IUserProfileRepository repo, IChildRepository childRepo, IBabysitRepository babysitRepo)
         {
             _repo = repo;
             _childRepo = childRepo;
+            _babysitRepo = babysitRepo;
         }
 
         [HttpGet("{firebaseUserId}")]
@@ -41,12 +43,14 @@ namespace NashvilleBabysitter.Controllers
             }
             List<Child> children = _childRepo.GetChildrenByParentId(parent.Id);
             List<UserProfile> babysitters = _repo.GetBabysitterByNeighborhoodId(parent.NeighborhoodId);
+            List<Babysit> babysits = _babysitRepo.GetUpcomingBabysitsByParentId(parent.Id);
 
             ParentProfileViewModel vm = new ParentProfileViewModel()
             {
                 UserProfile = parent,
                 Children = children,
-                Babysitters = babysitters
+                Babysitters = babysitters,
+                Babysits = babysits
             };
 
             return Ok(vm);
@@ -56,12 +60,37 @@ namespace NashvilleBabysitter.Controllers
         public IActionResult GetBabySitterById(int id)
         {
             var currentUser = GetCurrentUserProfile();
+            UserProfile babysitter = _repo.GetBabysitterById(id);
 
             if (currentUser.Id != id)
             {
                 return Unauthorized();
             }
-            return Ok(_repo.GetBabysitterById(id));
+
+            List<Babysit> babysits = _babysitRepo.GetBabysitsByBabysitterId(babysitter.Id);
+            List<UserProfile> parents = _repo.GetAllParents();
+            List<Child> parentChildren = new List<Child>();
+
+            foreach (UserProfile parent in parents)
+            {
+                List<Child> children = _childRepo.GetChildrenByParentId(parent.Id);
+                parentChildren.ForEach(child => parentChildren.Add(child));
+            };
+
+            int minutes = babysits.Sum(babysit => babysit.Duration);
+            TimeSpan time = TimeSpan.FromMinutes(minutes);
+
+            BabysitterProfileViewModel vm = new BabysitterProfileViewModel()
+            {
+                Babysitter = babysitter,
+                Babysits = babysits,
+                ParentChildren = parentChildren,
+                Parents = parents,
+                BabysitTime = $"{time.Hours} Hour {time.Minutes} minutes"
+
+            };
+
+            return Ok(vm);
         }
 
         [HttpGet("/babysitters/{neighborhoodId}")]

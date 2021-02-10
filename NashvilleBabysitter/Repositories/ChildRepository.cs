@@ -20,11 +20,11 @@ namespace NashvilleBabysitter.Repositories
             _context.SaveChanges();
         }
 
-        public List<Child> GetChildrenById(int id)
+        public Child GetChildrenById(int id)
         {
             return _context.Child
                 .Where(c => c.Id == id)
-                .ToList();
+                .FirstOrDefault();
         }
         public List<Child> GetChildrenByParentId(int id)
         {

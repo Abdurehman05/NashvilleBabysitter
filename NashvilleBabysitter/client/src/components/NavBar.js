@@ -14,7 +14,9 @@ import {
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const NavBar = () => {
-  const { getCurrentUser, logout } = useContext(UserProfileContext);
+  const { getCurrentUser, logout, isParent, isBabysitter } = useContext(
+    UserProfileContext
+  );
   const user = getCurrentUser();
   const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
@@ -47,11 +49,20 @@ const NavBar = () => {
           <Nav className="mr-auto" navbar>
             {user ? (
               <>
-                <NavItem>
-                  <NavLink to="/parentCard" tag={Link}>
-                    Parent
-                  </NavLink>
-                </NavItem>
+                {isParent() && (
+                  <NavItem>
+                    <NavLink to="/parent/details" tag={Link}>
+                      Parent
+                    </NavLink>
+                  </NavItem>
+                )}
+                {isBabysitter() && (
+                  <NavItem>
+                    <NavLink to="/babysitter/details" tag={Link}>
+                      Babysitter
+                    </NavLink>
+                  </NavItem>
+                )}
                 <NavItem>
                   <NavLink onClick={logoutAndReturn}>Logout</NavLink>
                 </NavItem>

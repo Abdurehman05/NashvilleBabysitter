@@ -5,12 +5,11 @@ using System.Threading.Tasks;
 
 namespace NashvilleBabysitter.Models.ViewModels
 {
-    public class ParentProfileViewModel
+    public class ScheduleBabysitViewModel
     {
-        public UserProfile UserProfile { get; set; }
+        public UserProfile Babysitter { get; set; }
+        public Babysit Babysit { get; set; }
         public List<Child> Children { get; set; }
-        public List<UserProfile> Babysitters { get; set; }
-        public List<Babysit> Babysits { get; set; }
-
+        public UserProfile Parent { get; set; }
     }
 }

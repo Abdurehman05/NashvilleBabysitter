@@ -1,61 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserProfileContext } from "../providers/UserProfileProvider";
-import {
-  Card,
-  Button,
-  Image,
-  Container,
-  Header,
-  List,
-} from "semantic-ui-react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { Card, Image, Button, Header } from "semantic-ui-react";
 
-const ParentCard = () => {
-  const [parent, setParents] = useState();
-  const [babysitters, setBabysitters] = useState([]);
-  const { getToken } = useContext(UserProfileContext);
-
-  const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
-
-  useEffect(() => {
-    getToken().then((token) =>
-      fetch(`/parent/${currentUser}`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((res) => res.json())
-        .then((parent) => {
-          setParents(parent);
-        })
-    );
-  }, []);
-
-  if (!parent) {
-    return null;
-  }
-  return (
-    <>
-      <Header as="h1">Parent Dashboard</Header>
-      <Container>
-        <Card>
-          <Image src={parent.userProfile.imageUrl} />
-          <Header>{parent.userProfile.fullName}</Header>
-          <Card.Content>{parent.userProfile.address}</Card.Content>
-          <Card.Content>Email:{parent.userProfile.email}</Card.Content>
-          <Card.Content>Phone: {parent.userProfile.phone}</Card.Content>
-        </Card>
-      </Container>
-      <Button color="youtube">Add a Child</Button>
-
-      {/* <Container>
-        <List>
-          {babysitters.map((babysitter) => {
-            return <List.Item key={babysitter.id} babysitter={babysitter} />;
-          })}
-        </List>
-      </Container> */}
-    </>
-  );
-};
+const ParentCard = ({ parent }) => (
+  <Card>
+    <Image size="mini" centered src={parent.imageUrl} />
+    <Header>{parent.displayName}</Header>
+    <Card.Content>{parent.phone}</Card.Content>
+    <Button color="black">Confirm</Button>
+    <Button color="black">Deny</Button>
+  </Card>
+);
 export default ParentCard;

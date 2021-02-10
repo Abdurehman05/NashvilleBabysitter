@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NashvilleBabysitter.Models;
+using NashvilleBabysitter.Models.ViewModels;
 using NashvilleBabysitter.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,14 @@ namespace NashvilleBabysitter.Controllers
     {
         private IBabysitRepository _babysitRepo;
         private IUserProfileRepository _repo;
+        private IChildRepository _childRepo;
 
-        public BabysitController(IBabysitRepository babysitRepo, IUserProfileRepository repo)
+
+        public BabysitController(IBabysitRepository babysitRepo, IUserProfileRepository repo, IChildRepository childRepo)
         {
             _babysitRepo = babysitRepo;
             _repo = repo;
+            _childRepo = childRepo;
         }
 
         [HttpGet("getbyparent/{id}")]
@@ -31,9 +35,70 @@ namespace NashvilleBabysitter.Controllers
             {
                 return Unauthorized();
             }
-            var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
-            return Ok(babysits);
+
+            try
+            {
+                var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
+                return Ok(babysits);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
         }
+
+        [HttpPost("{id}")]
+        public IActionResult Post(Babysit babysit)
+        {
+            var currentUser = GetCurrentUserProfile();
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 1;
+               
+            _babysitRepo.AddBabysit(babysit);
+            return Ok(babysit);
+        }
+
+        [HttpPut("confirm/{id}")]
+        public IActionResult Confirm(Babysit babysit)
+        {
+           
+            var currentUser = GetCurrentUserProfile();
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 2;
+  
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
+
+        [HttpPut("deny/{id}")]
+        public IActionResult Deny(Babysit babysit)
+        {
+
+            var currentUser = GetCurrentUserProfile();
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 4;
+
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
+
 
         private UserProfile GetCurrentUserProfile()
         {

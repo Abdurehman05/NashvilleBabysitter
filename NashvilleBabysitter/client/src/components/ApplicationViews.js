@@ -4,18 +4,46 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Home from "./Home";
-import ParentCard from "./ParentCard";
+import ParentDetails from "./ParentDetails";
+import ChildForm from "../pages/ChildForm";
+import BabysitterForm from "../pages/BabysitterForm";
+import BabysitterDetails from "./BabysitterDetails";
 
 const ApplicationViews = () => {
-  const { isLoggedIn } = useContext(UserProfileContext);
+  const { isLoggedIn, isParent, isBabysitter } = useContext(UserProfileContext);
 
   return (
     <Switch>
       <Route path="/" exact>
         {isLoggedIn ? <Home /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/parentCard">
-        {isLoggedIn ? <ParentCard /> : <Redirect to="/login" />}
+      <Route path="/parent/details">
+        {isLoggedIn ? (
+          isParent() ? (
+            <ParentDetails />
+          ) : (
+            <Redirect to="/" />
+          )
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Route>
+      <Route path="/babysitter/details">
+        {isLoggedIn ? (
+          isBabysitter() ? (
+            <BabysitterDetails />
+          ) : (
+            <Redirect to="/" />
+          )
+        ) : (
+          <Redirect to="/login" />
+        )}
+      </Route>
+      <Route path="/child/create">
+        {isLoggedIn ? <ChildForm /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/babysitter/create">
+        {isLoggedIn ? <BabysitterForm /> : <Redirect to="/login" />}
       </Route>
       <Route path="/login">
         <Login />
