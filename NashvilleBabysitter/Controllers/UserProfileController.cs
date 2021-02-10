@@ -87,6 +87,7 @@ namespace NashvilleBabysitter.Controllers
                 ParentChildren = parentChildren,
                 Parents = parents,
                 BabysitTime = $"{time.Hours} Hour {time.Minutes} minutes"
+
             };
 
             return Ok(vm);

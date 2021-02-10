@@ -49,33 +49,55 @@ namespace NashvilleBabysitter.Controllers
 
         }
 
-        [HttpPost]
+        [HttpPost("{id}")]
         public IActionResult Post(Babysit babysit)
         {
             var currentUser = GetCurrentUserProfile();
-            if (currentUser.Id != babysit.Child.UserProfileId)
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
             {
                 return Unauthorized();
             }
-            UserProfile babysitter = _repo.GetBabysitterById(babysit.UserProfileId);
-            ScheduleBabysitViewModel vm = new ScheduleBabysitViewModel()
-            {
-                Babysit = new Babysit()
-                {
-                    UserProfileId = babysitter.Id,
-                    BabysitStatusId = 1
-                    
-                },
-                Babysitter = babysitter,
-                Children = _childRepo.GetChildrenByParentId(currentUser.Id)
-            };
-            babysit.Child.UserProfileId = currentUser.Id;
             babysit.Duration = 0;
             babysit.BabysitStatusId = 1;
+               
             _babysitRepo.AddBabysit(babysit);
-            return Ok(vm);
+            return Ok(babysit);
         }
 
+        [HttpPut("confirm/{id}")]
+        public IActionResult Confirm(Babysit babysit)
+        {
+           
+            var currentUser = GetCurrentUserProfile();
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 2;
+  
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
+
+        [HttpPut("deny/{id}")]
+        public IActionResult Deny(Babysit babysit)
+        {
+
+            var currentUser = GetCurrentUserProfile();
+            var child = _childRepo.GetChildrenById(babysit.ChildId);
+            if (currentUser.Id != child.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.Duration = 0;
+            babysit.BabysitStatusId = 4;
+
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
 
 
         private UserProfile GetCurrentUserProfile()

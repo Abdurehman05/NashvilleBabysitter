@@ -1,7 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Card, Image, Button, Header, Table } from "semantic-ui-react";
-import BabysitterCard from "./BabysitterCard";
+import { Table } from "semantic-ui-react";
 
 const BabysitCard = ({ babysit }) => (
   <Table celled>

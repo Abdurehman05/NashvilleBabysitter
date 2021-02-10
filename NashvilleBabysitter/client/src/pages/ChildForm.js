@@ -1,16 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Container } from "reactstrap";
-import {
-  Form,
-  FormGroup,
-  Card,
-  Label,
-  Input,
-  Button,
-  Checkbox,
-  Header,
-} from "semantic-ui-react";
+import { Form, Card, Button, Header } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const ChildForm = () => {
@@ -18,10 +8,11 @@ const ChildForm = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [imageUrl, setImageUrl] = useState("");
-  const [note, setNote] = useState("");
-  const [userProfileId, setUserProfileId] = useState("");
+  const [notes, setNote] = useState("");
 
-  const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
+  const userProfileId = parseInt(
+    JSON.parse(localStorage.getItem("userProfile")).id
+  );
 
   // Use this hook to allow us to programatically redirect users
   const history = useHistory();
@@ -32,22 +23,21 @@ const ChildForm = () => {
       imageUrl,
       name,
       age,
-      note,
+      notes,
       userProfileId,
     };
-
-    getToken().then((token) =>
-      fetch(`/api/Child/${userProfileId}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(child),
-      }).then((c) => {
-        history.push("/parent/:parentId");
-      })
-    );
+    getToken()
+      .then((token) =>
+        fetch(`/api/Child`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(child),
+        })
+      )
+      .then(history.push("/parent/details"));
   };
 
   return (
@@ -87,13 +77,6 @@ const ChildForm = () => {
               type="text"
               required="required"
               onChange={(e) => setNote(e.target.value)}
-            />
-          </Form.Field>
-          <Form.Field>
-            <input
-              id="userProfileId"
-              type="hidden"
-              onChange={(e) => setUserProfileId(e.target.value)}
             />
           </Form.Field>
           <Button type="submit" color="black" onClick={handleSubmit}>

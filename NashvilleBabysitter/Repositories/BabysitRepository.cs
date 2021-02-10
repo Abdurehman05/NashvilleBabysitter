@@ -45,5 +45,17 @@ namespace NashvilleBabysitter.Repositories
                 .OrderByDescending(b => b.Date)
                 .ToList();
         }
+
+        public Babysit GetBabysitById(int id)
+        {
+            return _context.Babysit
+                .Where(b => b.Id == id)
+                .FirstOrDefault();
+        }
+        public void Update(Babysit babysit)
+        {
+            _context.Entry(babysit).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace NashvilleBabysitter.Repositories
     public interface IChildRepository
     {
         void Add(Child Child);
-        List<Child> GetChildrenById(int id);
+        Child GetChildrenById(int id);
         List<Child> GetChildrenByParentId(int id);
     }
 }

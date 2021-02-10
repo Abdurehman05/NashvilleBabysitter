@@ -15,5 +15,6 @@ namespace NashvilleBabysitter.Repositories
         List<UserProfile> GetBabysitterByNeighborhoodId(int neighborhoodId);
         UserProfile GetByFirebaseUserId(string firebaseUserId);
         UserProfile GetParentById(int id);
+        List<UserProfile> GetParentsByNeighborhoodId(int neighborhoodId);
     }
 }
