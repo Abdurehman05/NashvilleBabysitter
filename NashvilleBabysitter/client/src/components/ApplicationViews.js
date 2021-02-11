@@ -6,8 +6,11 @@ import Register from "../pages/Register";
 import Home from "./Home";
 import ParentDetails from "./ParentDetails";
 import ChildForm from "../pages/ChildForm";
-import BabysitterForm from "../pages/BabysitterForm";
+import BabysitForm from "../pages/BabysitForm";
 import BabysitterDetails from "./BabysitterDetails";
+import ConfirmForm from "../pages/ConfirmForm";
+import CompleteForm from "../pages/CompleteForm";
+import DenyForm from "../pages/DenyForm";
 
 const ApplicationViews = () => {
   const { isLoggedIn, isParent, isBabysitter } = useContext(UserProfileContext);
@@ -42,8 +45,17 @@ const ApplicationViews = () => {
       <Route path="/child/create">
         {isLoggedIn ? <ChildForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/babysitter/create">
-        {isLoggedIn ? <BabysitterForm /> : <Redirect to="/login" />}
+      <Route path="/babysit/create">
+        {isLoggedIn ? <BabysitForm /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/babysit/confirm">
+        {isLoggedIn ? <ConfirmForm /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/babysit/deny">
+        {isLoggedIn ? <DenyForm /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/babysit/complete">
+        {isLoggedIn ? <CompleteForm /> : <Redirect to="/login" />}
       </Route>
       <Route path="/login">
         <Login />

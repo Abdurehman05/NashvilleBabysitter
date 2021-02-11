@@ -7,8 +7,6 @@ const ParentCard = ({ parent }) => (
     <Image size="mini" centered src={parent.imageUrl} />
     <Header>{parent.displayName}</Header>
     <Card.Content>{parent.phone}</Card.Content>
-    <Button color="black">Confirm</Button>
-    <Button color="black">Deny</Button>
   </Card>
 );
 export default ParentCard;

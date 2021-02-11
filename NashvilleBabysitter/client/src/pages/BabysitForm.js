@@ -19,7 +19,6 @@ const BabysitterForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
     const babysit = {
       date,
       childId,

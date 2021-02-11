@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import ParentCard from "./ParentCard";
 import { useHistory } from "react-router-dom";
 import BabysitCard from "./BabysitCard";
-// import ChildCard from "./ChildCard";
+import BabysitAppointment from "./BabysitAppointment";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import {
   Card,
@@ -57,8 +57,10 @@ const BabysitterDetails = () => {
 
             <Grid.Column width={8}>
               <Header as="h2">Confirm Appointments</Header>
-              {data.parents.map((parent) => {
-                return <ParentCard key={parent.id} parent={parent} />;
+              {data.babysits.map((babysit) => {
+                return (
+                  <BabysitAppointment key={babysit.id} babysit={babysit} />
+                );
               })}
             </Grid.Column>
           </Grid.Row>

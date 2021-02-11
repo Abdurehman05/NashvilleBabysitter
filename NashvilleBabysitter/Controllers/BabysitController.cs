@@ -36,20 +36,27 @@ namespace NashvilleBabysitter.Controllers
                 return Unauthorized();
             }
 
-            try
-            {
-                var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
-                return Ok(babysits);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest();
-            }
+            var babysits = _babysitRepo.GetUpcomingBabysitsByParentId(id);
+            return Ok(babysits);
 
         }
 
-        [HttpPost("{id}")]
+        [HttpGet("getbybabysitter/{id}")]
+        public IActionResult GetBabysitsByBabysitterId(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            if (currentUser.Id != id)
+            {
+                return Unauthorized();
+            }
+
+            var babysits = _babysitRepo.GetBabysitsByBabysitterId(id);
+            return Ok(babysits);
+
+        }
+
+        [HttpPost]
         public IActionResult Post(Babysit babysit)
         {
             var currentUser = GetCurrentUserProfile();
@@ -92,6 +99,21 @@ namespace NashvilleBabysitter.Controllers
             }
             babysit.Duration = 0;
             babysit.BabysitStatusId = 4;
+
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
+
+        [HttpPut("complete/{id}")]
+        public IActionResult Complete(Babysit babysit)
+        {
+
+            var currentUser = GetCurrentUserProfile();
+            if (currentUser.Id != babysit.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.BabysitStatusId = 3;
 
             _babysitRepo.Update(babysit);
             return Ok();
