@@ -77,8 +77,8 @@ namespace NashvilleBabysitter.Controllers
                 parentChildren.ForEach(child => parentChildren.Add(child));
             };
 
-            int minutes = babysits.Sum(babysit => babysit.Duration);
-            TimeSpan time = TimeSpan.FromMinutes(minutes);
+            int seconds = babysits.Sum(babysit => babysit.Duration);
+            TimeSpan time = TimeSpan.FromSeconds(seconds);
 
             BabysitterProfileViewModel vm = new BabysitterProfileViewModel()
             {

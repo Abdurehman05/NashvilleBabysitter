@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, Children } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+
 import { Form, Card, Button, Header, Input, Dropdown } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
@@ -9,21 +10,21 @@ const BabysitterForm = () => {
 
   const [childId, setChildId] = useState("");
 
-  const userProfileId = parseInt(
-    JSON.parse(localStorage.getItem("userProfile")).id
-  );
-
+  const { babysitterId } = useParams();
   const [children, setChildren] = useState([]);
 
   const history = useHistory();
 
+  const userProfileId = parseInt(
+    JSON.parse(localStorage.getItem("userProfile")).id
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
     const babysit = {
       date,
       childId,
-      userProfileId,
+      userProfileId: babysitterId,
     };
 
     getToken()
@@ -57,9 +58,7 @@ const BabysitterForm = () => {
 
   return (
     <>
-      <Header as="h2">
-        Schedule an Appointment with {children.UserProfileId}
-      </Header>
+      <Header as="h2">Schedule an Appointment with {}</Header>
       <Card centered>
         <Form>
           <Form.Field>

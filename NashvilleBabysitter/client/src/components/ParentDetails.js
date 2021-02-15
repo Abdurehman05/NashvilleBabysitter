@@ -18,6 +18,7 @@ const ParentDetails = () => {
   const [parent, setParent] = useState();
   const [children, setChildren] = useState([]);
   const [babysitters, setBabysitters] = useState([]);
+  const [babysits, setBabysits] = useState([]);
   const { getToken } = useContext(UserProfileContext);
 
   const currentUser = JSON.parse(localStorage.getItem("userProfile")).id;
@@ -37,6 +38,7 @@ const ParentDetails = () => {
           setParent(parent);
           setChildren(children);
           setBabysitters(babysitters);
+          setBabysits(babysits);
         })
     );
   }, []);

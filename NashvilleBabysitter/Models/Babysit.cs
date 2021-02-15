@@ -13,7 +13,6 @@ namespace NashvilleBabysitter.Models
         public int UserProfileId { get; set; }
         public UserProfile UserProfile { get; set; }
         [Required]
-
         public DateTime Date { get; set; }
         public int Duration { get; set; }
         public int ChildId { get; set; }

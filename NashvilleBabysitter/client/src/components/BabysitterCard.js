@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Card, Image, Button, Header } from "semantic-ui-react";
 
 const BabysitterCard = ({ babysitter }) => {
@@ -18,7 +17,7 @@ const BabysitterCard = ({ babysitter }) => {
         <Button
           color="black"
           onClick={() => {
-            history.push(`/babysitter/create/${userProfileId}`);
+            history.push(`/babysit/create/${babysitter.id}`);
           }}
         >
           Schedule A Babysit
