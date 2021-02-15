@@ -45,16 +45,16 @@ const ApplicationViews = () => {
       <Route path="/child/create">
         {isLoggedIn ? <ChildForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/babysit/create">
+      <Route path="/babysit/create/:babysitterId">
         {isLoggedIn ? <BabysitForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/babysit/confirm">
+      <Route path="/babysit/confirm/:babysitId">
         {isLoggedIn ? <ConfirmForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/babysit/deny">
+      <Route path="/babysit/deny/:babysitId">
         {isLoggedIn ? <DenyForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/babysit/complete">
+      <Route path="/babysit/complete/:babysitId">
         {isLoggedIn ? <CompleteForm /> : <Redirect to="/login" />}
       </Route>
       <Route path="/login">

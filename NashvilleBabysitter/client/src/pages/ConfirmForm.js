@@ -5,18 +5,18 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const ConfirmForm = () => {
   const { getToken } = useContext(UserProfileContext);
-  const { id } = useParams();
+  const { babysitId } = useParams();
   const [babysitToEdit, setBabysitToEdit] = useState({});
+
   const userProfileId = parseInt(
     JSON.parse(localStorage.getItem("userProfile")).id
   );
 
   const history = useHistory();
-
   useEffect(() => {
-    getToken()
+    return getToken()
       .then((token) =>
-        fetch(`/api/Babysit/getbybabysitter/${id}`, {
+        fetch(`/api/Babysit/${babysitId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,16 +24,10 @@ const ConfirmForm = () => {
         })
       )
       .then((res) => res.json())
-      .then((edit) => setBabysitToEdit(edit.babysit));
+      .then((edit) => setBabysitToEdit(edit));
   }, []);
 
-  //   const handleSubmit = (e) => {
-  //     const newBabysit = { ...babysitToEdit };
-  //     newBabysit[e.target.name] = e.target.value;
-  //     setBabysitToEdit(newBabysit);
-  //   };
-
-  const updateBabysit = (babysit) => {
+  const confirmBabysit = (babysit) => {
     getToken()
       .then((token) =>
         fetch(`/api/Babysit/confirm/${userProfileId}`, {
@@ -45,7 +39,7 @@ const ConfirmForm = () => {
           body: JSON.stringify(babysit),
         })
       )
-      .then(history.push("/parent/details"));
+      .then(() => history.push("/babysitter/details"));
   };
   return (
     <>
@@ -54,12 +48,16 @@ const ConfirmForm = () => {
       </Header>
       <Card centered>
         <Form>
+          {/* <Card>
+            <Card.Header>{prop.date}</Card.Header>
+            <Card.Content>{prop.babyStatusId}</Card.Content>
+          </Card> */}
           <Button
             type="submit"
             color="black"
             onClick={(e) => {
               e.preventDefault();
-              updateBabysit(babysitToEdit);
+              confirmBabysit(babysitToEdit);
             }}
           >
             Confirm

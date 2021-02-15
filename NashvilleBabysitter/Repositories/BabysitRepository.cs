@@ -57,5 +57,13 @@ namespace NashvilleBabysitter.Repositories
             _context.Entry(babysit).State = EntityState.Modified;
             _context.SaveChanges();
         }
+
+
+        public void Delete(int id)
+        {
+            var babysit = GetBabysitById(id);
+            _context.Babysit.Remove(babysit);
+            _context.SaveChanges();
+        }
     }
 }

@@ -26,6 +26,23 @@ namespace NashvilleBabysitter.Controllers
             _childRepo = childRepo;
         }
 
+
+
+        [HttpGet("{id}")]
+        public IActionResult GetBabysitsById(int id)
+        {
+            var currentUser = GetCurrentUserProfile();
+
+            //if (currentUser.Id != id)
+            //{
+            //    return Unauthorized();
+            //}
+
+            var babysits = _babysitRepo.GetBabysitById(id);
+            return Ok(babysits);
+
+        }
+
         [HttpGet("getbyparent/{id}")]
         public IActionResult GetBabysitsByParentId(int id)
         {
@@ -116,6 +133,20 @@ namespace NashvilleBabysitter.Controllers
             babysit.BabysitStatusId = 3;
 
             _babysitRepo.Update(babysit);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var babysit = _babysitRepo.GetBabysitById(id);
+            var currentUser = GetCurrentUserProfile();
+            if (currentUser.Id != babysit.UserProfileId)
+            {
+                return Unauthorized();
+            }
+
+            _babysitRepo.Delete(id);
             return Ok();
         }
 

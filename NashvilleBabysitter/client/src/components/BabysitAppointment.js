@@ -17,7 +17,7 @@ const BabysitAppointment = ({ babysit }) => {
       <Button
         color="black"
         onClick={() => {
-          history.push(`/babysit/confirm/${userProfileId}`);
+          history.push(`/babysit/confirm/${babysit.id}`);
         }}
       >
         Confirm
@@ -25,7 +25,7 @@ const BabysitAppointment = ({ babysit }) => {
       <Button
         color="black"
         onClick={() => {
-          history.push(`/babysit/deny/${userProfileId}`);
+          history.push(`/babysit/deny/${babysit.id}`);
         }}
       >
         Deny
@@ -33,7 +33,7 @@ const BabysitAppointment = ({ babysit }) => {
       <Button
         color="black"
         onClick={() => {
-          history.push(`/babysit/complete/${userProfileId}`);
+          history.push(`/babysit/complete/${babysit.id}`);
         }}
       >
         Complete

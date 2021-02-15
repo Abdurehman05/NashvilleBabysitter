@@ -1,22 +1,22 @@
-import React, { useState, useContext, useEffect, Children } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Card, Button, Header, Input, Dropdown } from "semantic-ui-react";
+import { Card, Button, Header, Form } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 
 const DenyForm = () => {
   const { getToken } = useContext(UserProfileContext);
-  const { id } = useParams();
+  const { babysitId } = useParams();
   const [babysitToEdit, setBabysitToEdit] = useState({});
+
   const userProfileId = parseInt(
     JSON.parse(localStorage.getItem("userProfile")).id
   );
 
   const history = useHistory();
-
   useEffect(() => {
-    getToken()
+    return getToken()
       .then((token) =>
-        fetch(`/api/Babysit/getbybabysitter/${id}`, {
+        fetch(`/api/Babysit/${babysitId}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,16 +24,10 @@ const DenyForm = () => {
         })
       )
       .then((res) => res.json())
-      .then((edit) => setBabysitToEdit(edit.babysit));
+      .then((edit) => setBabysitToEdit(edit));
   }, []);
 
-  const handleSubmit = (e) => {
-    const newBabysit = { ...babysitToEdit };
-    newBabysit[e.target.name] = e.target.value;
-    setBabysitToEdit(newBabysit);
-  };
-
-  const updateBabysit = (babysit) => {
+  const confirmBabysit = (babysit) => {
     getToken()
       .then((token) =>
         fetch(`/api/Babysit/deny/${userProfileId}`, {
@@ -45,23 +39,30 @@ const DenyForm = () => {
           body: JSON.stringify(babysit),
         })
       )
-      .then(history.push("/parent/details"));
+      .then(() => history.push("/babysitter/details"));
   };
-
   return (
     <>
-      <Header as="h2">Are you sure you want to deny this appointment?</Header>
+      <Header as="h2">
+        Are you sure you want to confirm this appointment?
+      </Header>
       <Card centered>
-        <Button
-          type="submit"
-          color="black"
-          onClick={(e) => {
-            e.preventDefault();
-            updateBabysit(babysitToEdit);
-          }}
-        >
-          Deny
-        </Button>
+        <Form>
+          {/* <Card>
+            <Card.Header>{prop.date}</Card.Header>
+            <Card.Content>{prop.babyStatusId}</Card.Content>
+          </Card> */}
+          <Button
+            type="submit"
+            color="black"
+            onClick={(e) => {
+              e.preventDefault();
+              confirmBabysit(babysitToEdit);
+            }}
+          >
+            Deny
+          </Button>
+        </Form>
       </Card>
     </>
   );

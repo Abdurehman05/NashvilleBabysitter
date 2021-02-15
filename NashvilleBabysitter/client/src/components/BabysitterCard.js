@@ -17,7 +17,7 @@ const BabysitterCard = ({ babysitter }) => {
         <Button
           color="black"
           onClick={() => {
-            history.push(`/babysit/create/${userProfileId}`);
+            history.push(`/babysit/create/${babysitter.id}`);
           }}
         >
           Schedule A Babysit
