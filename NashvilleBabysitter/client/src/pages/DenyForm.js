@@ -27,25 +27,20 @@ const DenyForm = () => {
       .then((edit) => setBabysitToEdit(edit));
   }, []);
 
-  const confirmBabysit = (babysit) => {
-    getToken()
-      .then((token) =>
-        fetch(`/api/Babysit/deny/${userProfileId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(babysit),
-        })
-      )
-      .then(() => history.push("/babysitter/details"));
+  const denyBabysit = (babysit) => {
+    getToken().then((token) => {
+      fetch(`/api/Babysit/${babysitId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(babysit),
+      }).then(() => history.push("/babysitter/details"));
+    });
   };
   return (
     <>
-      <Header as="h2">
-        Are you sure you want to confirm this appointment?
-      </Header>
+      <Header as="h2">Are you sure you want to deny this appointment?</Header>
       <Card centered>
         <Form>
           {/* <Card>
@@ -57,7 +52,7 @@ const DenyForm = () => {
             color="black"
             onClick={(e) => {
               e.preventDefault();
-              confirmBabysit(babysitToEdit);
+              denyBabysit(babysitToEdit);
             }}
           >
             Deny
