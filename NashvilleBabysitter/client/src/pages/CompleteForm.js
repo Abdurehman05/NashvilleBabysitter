@@ -28,7 +28,7 @@ const CompleteForm = () => {
       .then((edit) => setBabysitToEdit(edit));
   }, []);
 
-  const CompleteBabysit = (babysit) => {
+  const completeBabysit = (babysit) => {
     getToken().then((token) => {
       fetch(`/api/Babysit/complete/${userProfileId}`, {
         method: "DELETE",
@@ -60,7 +60,7 @@ const CompleteForm = () => {
             color="black"
             onClick={(e) => {
               e.preventDefault();
-              CompleteBabysit(babysitToComplete);
+              completeBabysit(babysitToComplete);
             }}
           >
             Complete
