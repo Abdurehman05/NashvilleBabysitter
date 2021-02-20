@@ -67,7 +67,8 @@ namespace NashvilleBabysitter.Controllers
                 return Unauthorized();
             }
 
-            List<Babysit> babysits = _babysitRepo.GetBabysitsByBabysitterId(babysitter.Id);
+            List<Babysit> babysits = _babysitRepo.GetPendingBabysitsByBabysitterId(babysitter.Id);
+            List<Babysit> allBabysits = _babysitRepo.GetAllBabysitsByBabysitterId(babysitter.Id);
             List<UserProfile> parents = _repo.GetAllParents();
             List<Child> parentChildren = new List<Child>();
 
@@ -83,7 +84,8 @@ namespace NashvilleBabysitter.Controllers
             BabysitterProfileViewModel vm = new BabysitterProfileViewModel()
             {
                 Babysitter = babysitter,
-                Babysits = babysits,
+                PendingBabysits = babysits,
+                Babysits = allBabysits,
                 ParentChildren = parentChildren,
                 Parents = parents,
                 BabysitTime = $"{time.Hours} Hour {time.Minutes} minutes"

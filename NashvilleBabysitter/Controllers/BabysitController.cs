@@ -68,7 +68,7 @@ namespace NashvilleBabysitter.Controllers
                 return Unauthorized();
             }
 
-            var babysits = _babysitRepo.GetBabysitsByBabysitterId(id);
+            var babysits = _babysitRepo.GetAllBabysitsByBabysitterId(id);
             return Ok(babysits);
 
         }

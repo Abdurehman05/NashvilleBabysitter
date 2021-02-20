@@ -24,7 +24,7 @@ namespace NashvilleBabysitter.Repositories
                 .Include(b => b.Child)
                 .Include(b => b.BabysitStatus)
                 .Where(b => b.Child.UserProfileId == id)
-                .Where(b => b.BabysitStatusId == 1 || b.BabysitStatusId == 2)
+                //.Where(b => b.BabysitStatusId == 1 || b.BabysitStatusId == 2)
                 .OrderByDescending(b => b.Date)
                 .ToList();
 
@@ -35,7 +35,20 @@ namespace NashvilleBabysitter.Repositories
             _context.SaveChanges();
         }
 
-        public List<Babysit> GetBabysitsByBabysitterId(int babysitterId)
+        public List<Babysit> GetPendingBabysitsByBabysitterId(int babysitterId)
+        {
+            return _context.Babysit
+                .Include(b => b.UserProfile)
+                .Include(b => b.Child)
+                .Include(b => b.BabysitStatus)
+                .Where(b => b.UserProfileId == babysitterId)
+                .Where(b => b.BabysitStatusId == 1)
+                .OrderByDescending(b => b.Date)
+                .ToList();
+        }
+
+
+        public List<Babysit> GetAllBabysitsByBabysitterId(int babysitterId)
         {
             return _context.Babysit
                 .Include(b => b.UserProfile)
