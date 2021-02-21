@@ -28,15 +28,18 @@ const DenyForm = () => {
   }, []);
 
   const denyBabysit = (babysit) => {
-    getToken().then((token) => {
-      fetch(`/api/Babysit/${babysitId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(babysit),
-      }).then(() => history.push("/babysitter/details"));
-    });
+    getToken()
+      .then((token) =>
+        fetch(`/api/Babysit/deny/${userProfileId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(babysit),
+        })
+      )
+      .then(() => history.push("/babysitter/details"));
   };
   return (
     <>
