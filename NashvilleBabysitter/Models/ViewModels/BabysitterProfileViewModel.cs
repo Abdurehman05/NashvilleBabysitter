@@ -8,6 +8,7 @@ namespace NashvilleBabysitter.Models.ViewModels
     public class BabysitterProfileViewModel
     {
         public UserProfile Babysitter { get; set; }
+        public List<Babysit> PendingBabysits { get; set; }
         public List<Babysit> Babysits { get; set; }
         public List<UserProfile> Parents { get; set; }
         public List<Child> ParentChildren { get; set; }

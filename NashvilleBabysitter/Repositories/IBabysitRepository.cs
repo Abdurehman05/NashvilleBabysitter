@@ -10,8 +10,9 @@ namespace NashvilleBabysitter.Repositories
     {
         void AddBabysit(Babysit babysit);
         void Delete(int id);
+        List<Babysit> GetAllBabysitsByBabysitterId(int babysitterId);
         Babysit GetBabysitById(int id);
-        List<Babysit> GetBabysitsByBabysitterId(int babysitterId);
+        List<Babysit> GetPendingBabysitsByBabysitterId(int babysitterId);
         List<Babysit> GetUpcomingBabysitsByParentId(int parentId);
         void Update(Babysit babysit);
     }

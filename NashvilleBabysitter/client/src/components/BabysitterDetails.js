@@ -57,7 +57,7 @@ const BabysitterDetails = () => {
 
             <Grid.Column width={8}>
               <Header as="h2">Confirm Appointments</Header>
-              {data.babysits.map((babysit) => {
+              {data.pendingBabysits.map((babysit) => {
                 return (
                   <BabysitAppointment key={babysit.id} babysit={babysit} />
                 );
