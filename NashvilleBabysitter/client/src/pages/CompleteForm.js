@@ -29,15 +29,18 @@ const CompleteForm = () => {
   }, []);
 
   const completeBabysit = (babysit) => {
-    getToken().then((token) => {
-      fetch(`/api/Babysit/complete/${userProfileId}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(babysit),
-      }).then(() => history.push("/babysitter/details"));
-    });
+    getToken()
+      .then((token) =>
+        fetch(`/api/Babysit/complete/${userProfileId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(babysit),
+        })
+      )
+      .then(() => history.push("/babysitter/details"));
   };
 
   return (
