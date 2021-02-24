@@ -30,14 +30,14 @@ const BabysitAppointment = ({ babysit }) => {
       >
         Deny
       </Button>
-      <Button
+      {/* <Button
         color="black"
         onClick={() => {
           history.push(`/babysit/complete/${babysit.id}`);
         }}
       >
         Complete
-      </Button>
+      </Button> */}
     </Card>
   );
 };

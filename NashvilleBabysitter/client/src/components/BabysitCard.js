@@ -12,7 +12,6 @@ const BabysitCard = ({ babysit }) => {
             <Table.HeaderCell>Child Name</Table.HeaderCell>
             <Table.HeaderCell>Date and Time</Table.HeaderCell>
             <Table.HeaderCell>Status</Table.HeaderCell>
-            <Table.HeaderCell>Duration</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
@@ -23,7 +22,6 @@ const BabysitCard = ({ babysit }) => {
             <Table.Cell>{babysit.child.name}</Table.Cell>
             <Table.Cell>{babysit.date}</Table.Cell>
             <Table.Cell>{babysit.babysitStatus.status}</Table.Cell>
-            <Table.Cell>{babysit.duration}</Table.Cell>
           </Table.Row>
         </Table.Body>
       </Table>
