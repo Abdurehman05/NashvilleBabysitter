@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import ParentCard from "./ParentCard";
 import { useHistory } from "react-router-dom";
-import BabysitCard from "./BabysitCard";
+import BabysitCompleteCard from "./BabysitCompleteCard";
 import BabysitAppointment from "./BabysitAppointment";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 import {
@@ -67,7 +67,7 @@ const BabysitterDetails = () => {
           <Grid.Row>
             <Header as="h2">Appointments</Header>
             {data.babysits.map((babysit) => {
-              return <BabysitCard key={babysit.id} babysit={babysit} />;
+              return <BabysitCompleteCard key={babysit.id} babysit={babysit} />;
             })}
           </Grid.Row>
         </Grid>

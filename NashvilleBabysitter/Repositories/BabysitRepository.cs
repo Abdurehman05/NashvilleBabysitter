@@ -55,6 +55,18 @@ namespace NashvilleBabysitter.Repositories
                 .Include(b => b.Child)
                 .Include(b => b.BabysitStatus)
                 .Where(b => b.UserProfileId == babysitterId)
+                .Where(b => b.BabysitStatusId != 1)
+                .OrderByDescending(b => b.Date)
+                .ToList();
+        }
+
+        public List<Babysit> GetBabysitsByChildId(int childId)
+        {
+            return _context.Babysit
+                .Include(b => b.UserProfile)
+                .Include(b => b.Child)
+                .Include(b => b.BabysitStatus)
+                .Where(b => b.ChildId == childId)
                 .OrderByDescending(b => b.Date)
                 .ToList();
         }

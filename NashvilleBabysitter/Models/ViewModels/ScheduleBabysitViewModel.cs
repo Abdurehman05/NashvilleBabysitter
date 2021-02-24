@@ -10,6 +10,6 @@ namespace NashvilleBabysitter.Models.ViewModels
         public UserProfile Babysitter { get; set; }
         public Babysit Babysit { get; set; }
         public List<Child> Children { get; set; }
-        public UserProfile Parent { get; set; }
+      
     }
 }
