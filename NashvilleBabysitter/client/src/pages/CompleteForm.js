@@ -6,7 +6,9 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 const CompleteForm = () => {
   const { getToken } = useContext(UserProfileContext);
   const { babysitId } = useParams();
-  const [babysitToComplete, setBabysitToEdit] = useState({});
+  const [babysitToComplete, setBabysitToEdit] = useState({
+    duration: "",
+  });
 
   const userProfileId = parseInt(
     JSON.parse(localStorage.getItem("userProfile")).id
@@ -28,6 +30,12 @@ const CompleteForm = () => {
       .then((edit) => setBabysitToEdit(edit));
   }, []);
 
+  const handleSubmit = (e) => {
+    const newBabysit = { ...babysitToComplete };
+    newBabysit[e.target.name] = e.target.value;
+    setBabysitToEdit(newBabysit);
+  };
+
   const completeBabysit = (babysit) => {
     getToken()
       .then((token) =>
@@ -48,15 +56,16 @@ const CompleteForm = () => {
       <Header as="h2">Complete Appointment?</Header>
       <Card centered>
         <Form>
-          {/* <Form.Field>
+          <Form.Field>
             <Input
               placeholder="Babysit Duration"
               type="text"
               id="duration"
-              required="required"
-              onChange={(e) => setDuration(e.target.value)}
+              name="duration"
+              value={babysitToComplete.duration}
+              onChange={(e) => handleSubmit(e)}
             />
-          </Form.Field> */}
+          </Form.Field>
 
           <Button
             type="submit"

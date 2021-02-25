@@ -55,7 +55,7 @@ namespace NashvilleBabysitter.Repositories
                 .Include(b => b.Child)
                 .Include(b => b.BabysitStatus)
                 .Where(b => b.UserProfileId == babysitterId)
-                .Where(b => b.BabysitStatusId != 1)
+                .Where(b => b.BabysitStatusId == 2 || b.BabysitStatusId == 3)
                 .OrderByDescending(b => b.Date)
                 .ToList();
         }

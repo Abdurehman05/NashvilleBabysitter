@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Card, Image, Button, Header } from "semantic-ui-react";
+import { Card, Image, Button, Header, CardHeader } from "semantic-ui-react";
 
 const BabysitterCard = ({ babysitter }) => {
   const history = useHistory();
@@ -14,6 +14,7 @@ const BabysitterCard = ({ babysitter }) => {
       <Card>
         <Image src={babysitter.imageUrl} />
         <Header>{babysitter.displayName}</Header>
+        <Card.Content>{babysitter.neighborhood.name}</Card.Content>
         <Button
           color="black"
           onClick={() => {

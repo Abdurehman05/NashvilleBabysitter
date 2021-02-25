@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, Children } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import { Form, Card, Button, Header, Input, Dropdown } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
 

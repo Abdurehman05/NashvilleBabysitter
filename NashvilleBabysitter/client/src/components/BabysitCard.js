@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "semantic-ui-react";
-import { format } from "date-fns";
+import formatDate from "../utils/dateFormatter";
 
 const BabysitCard = ({ babysit }) => {
   return (
@@ -14,13 +14,12 @@ const BabysitCard = ({ babysit }) => {
             <Table.HeaderCell>Status</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-
         <Table.Body>
           <Table.Row>
             {/* <Table.Cell>{babysitter.fullName}</Table.Cell> */}
             <Table.Cell>{babysit.userProfile.fullName}</Table.Cell>
             <Table.Cell>{babysit.child.name}</Table.Cell>
-            <Table.Cell>{babysit.date}</Table.Cell>
+            <Table.Cell>{formatDate(babysit.date)}</Table.Cell>
             <Table.Cell>{babysit.babysitStatus.status}</Table.Cell>
           </Table.Row>
         </Table.Body>
