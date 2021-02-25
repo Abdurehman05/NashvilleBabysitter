@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import ParentCard from "./ParentCard";
 import { useHistory } from "react-router-dom";
 import BabysitCompleteCard from "./BabysitCompleteCard";
 import BabysitAppointment from "./BabysitAppointment";
@@ -50,8 +49,14 @@ const BabysitterDetails = () => {
           <Grid.Row>
             <Grid.Column width={4}>
               <Card>
-                <Image src={data.babysitter.imageUrl} />
-                <Header>{data.babysitter.displayName}</Header>
+                <Card.Content>
+                  <Image src={data.babysitter.imageUrl} />
+                  <Header>{data.babysitter.displayName}</Header>
+                  <Card.Content>
+                    <strong>Neighborhood: </strong>
+                    {data.babysitter.neighborhood.name}
+                  </Card.Content>
+                </Card.Content>
               </Card>
             </Grid.Column>
 

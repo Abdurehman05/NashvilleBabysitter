@@ -10,7 +10,6 @@ import {
   Image,
   Container,
   Header,
-  List,
   Grid,
 } from "semantic-ui-react";
 

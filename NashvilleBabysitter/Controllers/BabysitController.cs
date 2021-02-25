@@ -89,6 +89,18 @@ namespace NashvilleBabysitter.Controllers
             return Ok(babysit);
         }
 
+        [HttpPut("complete/{id}")]
+        public IActionResult Complete(Babysit babysit)
+        {
+            var currentUser = GetCurrentUserProfile();
+            if (currentUser.Id != babysit.UserProfileId)
+            {
+                return Unauthorized();
+            }
+            babysit.BabysitStatusId = 3;
+            _babysitRepo.Update(babysit);
+            return Ok();
+        }
         [HttpPut("confirm/{id}")]
         public IActionResult Confirm(Babysit babysit)
         {
@@ -121,20 +133,6 @@ namespace NashvilleBabysitter.Controllers
             return Ok();
         }
 
-        [HttpPut("complete/{id}")]
-        public IActionResult Complete(Babysit babysit)
-        {
-
-            var currentUser = GetCurrentUserProfile();
-            if (currentUser.Id != babysit.UserProfileId)
-            {
-                return Unauthorized();
-            }
-            babysit.BabysitStatusId = 3;
-
-            _babysitRepo.Update(babysit);
-            return Ok();
-        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
