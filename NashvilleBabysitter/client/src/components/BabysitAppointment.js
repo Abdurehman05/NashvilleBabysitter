@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { Card, Image, Header, Button } from "semantic-ui-react";
+import { Card, Image, Button } from "semantic-ui-react";
 import formatDate from "../utils/dateFormatter";
 
 const BabysitAppointment = ({ babysit }) => {
