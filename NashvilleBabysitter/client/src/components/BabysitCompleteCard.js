@@ -3,7 +3,7 @@ import { Table, Button } from "semantic-ui-react";
 import { useHistory } from "react-router-dom";
 import formatDate from "../utils/dateFormatter";
 
-const BabysitCompleteCard = ({ babysit }) => {
+const BabysitCompleteCard = ({ babysit, babysitTime }) => {
   const history = useHistory();
 
   return (
@@ -26,7 +26,10 @@ const BabysitCompleteCard = ({ babysit }) => {
           {babysit.babysitStatusId === 2 ? (
             <Table.Cell>TBD</Table.Cell>
           ) : (
-            <Table.Cell>{babysit.duration / 60} Minutes</Table.Cell>
+            <Table.Cell>
+              {babysit.duration / 60} Minutes
+              {babysitTime}
+            </Table.Cell>
           )}
           {babysit.babysitStatusId === 3 ? (
             <Table.Cell>Yes</Table.Cell>
