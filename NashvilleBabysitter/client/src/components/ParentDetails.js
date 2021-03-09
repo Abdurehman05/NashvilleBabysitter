@@ -70,9 +70,11 @@ const ParentDetails = () => {
 
             <Grid.Column width={8}>
               <Header as="h2">Children</Header>
-              {parent.children.map((child) => {
-                return <ChildCard key={child.id} child={child} />;
-              })}
+              <Card.Group itemsPerRow={3}>
+                {parent.children.map((child) => {
+                  return <ChildCard key={child.id} child={child} />;
+                })}
+              </Card.Group>
             </Grid.Column>
 
             <Grid.Column width={4}>

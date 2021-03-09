@@ -28,7 +28,7 @@ const BabysitCompleteCard = ({ babysit, babysitTime }) => {
           ) : (
             <Table.Cell>
               {babysit.duration / 60} Minutes
-              {babysitTime}
+              {/* {babysitTime} */}
             </Table.Cell>
           )}
           {babysit.babysitStatusId === 3 ? (

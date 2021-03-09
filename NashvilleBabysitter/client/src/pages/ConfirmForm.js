@@ -6,7 +6,10 @@ import { UserProfileContext } from "../providers/UserProfileProvider";
 const ConfirmForm = () => {
   const { getToken } = useContext(UserProfileContext);
   const { babysitId } = useParams();
-  const [babysitToEdit, setBabysitToEdit] = useState({});
+  const [babysitToEdit, setBabysitToEdit] = useState({
+    date: "",
+    userProfile: "",
+  });
 
   const userProfileId = parseInt(
     JSON.parse(localStorage.getItem("userProfile")).id
@@ -43,15 +46,12 @@ const ConfirmForm = () => {
   };
   return (
     <>
-      <Header as="h2">
-        Are you sure you want to confirm this appointment?
-      </Header>
-      <Card centered>
+      <Card color="red" centered>
+        <Card.Content as="h2">
+          Are you sure you want to confirm this appointment {babysitToEdit.date}{" "}
+          ?
+        </Card.Content>
         <Form>
-          {/* <Card>
-            <Card.Header>{prop.date}</Card.Header>
-            <Card.Content>{prop.babyStatusId}</Card.Content>
-          </Card> */}
           <Button
             type="submit"
             color="black"
