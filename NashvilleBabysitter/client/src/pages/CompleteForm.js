@@ -7,7 +7,7 @@ import formatDate from "../utils/dateFormatter";
 const CompleteForm = () => {
   const { getToken } = useContext(UserProfileContext);
   const { babysitId } = useParams();
-  const [babysitToComplete, setBabysitToEdit] = useState({
+  const [babysitToComplete, setBabysitToComplete] = useState({
     duration: "",
     date: "",
     userProfile: "",
@@ -30,13 +30,13 @@ const CompleteForm = () => {
         })
       )
       .then((res) => res.json())
-      .then((edit) => setBabysitToEdit(edit));
+      .then((edit) => setBabysitToComplete(edit));
   }, []);
 
   const handleSubmit = (e) => {
     const newBabysit = { ...babysitToComplete };
     newBabysit[e.target.name] = e.target.value;
-    setBabysitToEdit(newBabysit);
+    setBabysitToComplete(newBabysit);
   };
 
   const completeBabysit = (babysit) => {
@@ -56,10 +56,10 @@ const CompleteForm = () => {
 
   return (
     <>
-      <Header as="h2">Complete Appointment?</Header>
       <Card centered>
+        <Header>Complete Appointment by adding babysit duration?</Header>
         <Card.Content>
-          Babysitter: {babysitToComplete.userProfile.fullName}
+          Babysitter Name: {babysitToComplete.userProfile.fullName}
         </Card.Content>
         <Card.Content>Date:{babysitToComplete.date}</Card.Content>
         <Form>

@@ -78,7 +78,7 @@ namespace NashvilleBabysitter.Controllers
                 parentChildren.ForEach(child => parentChildren.Add(child));
             };
 
-            int seconds = babysits.Sum(babysit => babysit.Duration);
+            int seconds = allBabysits.Sum(babysit => babysit.Duration);
             TimeSpan time = TimeSpan.FromSeconds(seconds);
 
             BabysitterProfileViewModel vm = new BabysitterProfileViewModel()
@@ -87,7 +87,7 @@ namespace NashvilleBabysitter.Controllers
                 PendingBabysits = babysits,
                 Babysits = allBabysits,
                 ParentChildren = parentChildren,
-                Parents = parents,
+                //Parents = parents,
                 BabysitTime = $"{time.Hours} Hour {time.Minutes} minutes"
 
             };

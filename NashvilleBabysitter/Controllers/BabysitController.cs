@@ -27,20 +27,11 @@ namespace NashvilleBabysitter.Controllers
         }
 
 
-
         [HttpGet("{id}")]
         public IActionResult GetBabysitsById(int id)
         {
-            var currentUser = GetCurrentUserProfile();
-
-            //if (currentUser.Id != id)
-            //{
-            //    return Unauthorized();
-            //}
-
             var babysits = _babysitRepo.GetBabysitById(id);
             return Ok(babysits);
-
         }
 
         [HttpGet("getbyparent/{id}")]
