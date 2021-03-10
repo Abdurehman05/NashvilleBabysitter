@@ -4,9 +4,9 @@ An app that helps parents to schedule babysitting appointments with babysitters 
 
 ![ERD](./Babysitter.png)
 
-![ERD](./babysitter1.png)
+![Babysitter View](./babysitter1.PNG)
 
-![ERD](./Parent.png)
+![Parent View](./Parent.PNG)
 
 
 
