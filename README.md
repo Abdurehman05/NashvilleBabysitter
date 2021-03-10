@@ -1,6 +1,6 @@
 # NashvilleBabysitter
 
-An app that helps parents to schedule babysitting appointments with babysitters in their neighborhoods. 
+An app that helps parents to schedule babysit appointments with babysitters in their neighborhoods. 
 
 ![ERD](./Babysitter.png)
 
