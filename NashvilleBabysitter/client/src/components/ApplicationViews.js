@@ -6,6 +6,7 @@ import Register from "../pages/Register";
 import Home from "./Home";
 import ParentDetails from "./ParentDetails";
 import ChildForm from "../pages/ChildForm";
+// import ChildDetail from "../pages/ChildDetail";
 import BabysitForm from "../pages/BabysitForm";
 import BabysitterDetails from "./BabysitterDetails";
 import ConfirmForm from "../pages/ConfirmForm";
@@ -44,6 +45,9 @@ const ApplicationViews = () => {
       </Route>
       <Route path="/child/create">
         {isLoggedIn ? <ChildForm /> : <Redirect to="/login" />}
+      </Route>
+      <Route path="/child/detail">
+        {/* {isLoggedIn ? <ChildDetail /> : <Redirect to="/login" />} */}
       </Route>
       <Route path="/babysit/create/:babysitterId">
         {isLoggedIn ? <BabysitForm /> : <Redirect to="/login" />}
