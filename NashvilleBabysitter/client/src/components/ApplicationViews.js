@@ -46,8 +46,8 @@ const ApplicationViews = () => {
       <Route path="/child/create">
         {isLoggedIn ? <ChildForm /> : <Redirect to="/login" />}
       </Route>
-      <Route path="/child/detail">
-        {/* {isLoggedIn ? <ChildDetail /> : <Redirect to="/login" />} */}
+      <Route path="/child/detail/:childId(\d+)">
+        {isLoggedIn ? <ChildDetail /> : <Redirect to="/login" />}
       </Route>
       <Route path="/babysit/create/:babysitterId">
         {isLoggedIn ? <BabysitForm /> : <Redirect to="/login" />}
