@@ -9,6 +9,7 @@ import ChildForm from "../pages/ChildForm";
 // import ChildDetail from "../pages/ChildDetail";
 import BabysitForm from "../pages/BabysitForm";
 import BabysitterDetails from "./BabysitterDetails";
+import ChildDetail from "./ChildDetail";
 import ConfirmForm from "../pages/ConfirmForm";
 import CompleteForm from "../pages/CompleteForm";
 import DenyForm from "../pages/DenyForm";
