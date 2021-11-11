@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Card, Button, Header, Form } from "semantic-ui-react";
+import { Card, Button, Header, Form, Segment } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
+import { format } from "date-fns";
 
 const ConfirmForm = () => {
   const { getToken } = useContext(UserProfileContext);
@@ -46,23 +47,22 @@ const ConfirmForm = () => {
   };
   return (
     <>
-      <Card color="red" centered>
+      <Card centered color="yellow" header="Option 3">
         <Card.Content as="h2">
-          Are you sure you want to confirm this appointment {babysitToEdit.date}{" "}
-          ?
+          Are you sure you want to confirm this appointment for{" "}
+          <Segment>{format(new Date(babysitToEdit.date), "PPPPpp")}</Segment>?
         </Card.Content>
-        <Form>
-          <Button
-            type="submit"
-            color="black"
-            onClick={(e) => {
-              e.preventDefault();
-              confirmBabysit(babysitToEdit);
-            }}
-          >
-            Confirm
-          </Button>
-        </Form>
+
+        <Button
+          type="submit"
+          color="black"
+          onClick={(e) => {
+            e.preventDefault();
+            confirmBabysit(babysitToEdit);
+          }}
+        >
+          Confirm
+        </Button>
       </Card>
     </>
   );
