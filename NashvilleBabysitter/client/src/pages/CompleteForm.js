@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { Form, Card, Button, Header, Input } from "semantic-ui-react";
+import { Form, Card, Button, Header, Input, Segment } from "semantic-ui-react";
 import { UserProfileContext } from "../providers/UserProfileProvider";
-import formatDate from "../utils/dateFormatter";
+import { format } from "date-fns";
 
 const CompleteForm = () => {
   const { getToken } = useContext(UserProfileContext);
@@ -61,7 +61,12 @@ const CompleteForm = () => {
         <Card.Content>
           Babysitter Name: {babysitToComplete.userProfile.fullName}
         </Card.Content>
-        <Card.Content>Date:{babysitToComplete.date}</Card.Content>
+        <Card.Content>
+          Date:
+          <Segment>
+            {format(new Date(babysitToComplete.date), "PPPPpp")}
+          </Segment>
+        </Card.Content>
         <Form>
           <Form.Field>
             <Input
