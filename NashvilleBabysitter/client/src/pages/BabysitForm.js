@@ -63,6 +63,7 @@ const BabysitterForm = () => {
           <Form.Field>
             <Input
               type="datetime-local"
+              min="2021-11-19T08:30"
               id="date"
               required="required"
               onChange={(e) => setDate(e.target.value)}

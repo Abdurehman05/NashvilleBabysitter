@@ -50,7 +50,7 @@ const ConfirmForm = () => {
       <Card centered color="yellow" header="Option 3">
         <Card.Content as="h2">
           Are you sure you want to confirm this appointment for{" "}
-          <Segment>{format(new Date(babysitToEdit.date), "PPPPpp")}</Segment>?
+          {format(new Date(babysitToEdit.date), "PPPPpp")}?
         </Card.Content>
 
         <Button
